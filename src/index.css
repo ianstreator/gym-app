@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.radial {
+  background: radial-gradient(
+      circle at bottom left,
+      hsla(210, 100%, 60%, 0.4),
+      hsla(210, 100%, 60%, 0) 55%
+    ),
+    radial-gradient(
+      circle at top right,
+      hsla(160, 100%, 60%, 0.25),
+      hsla(160, 100%, 60%, 0) 95%
+    );
+}
+
+html,
+body {
+  @apply w-screen h-screen overflow-hidden bg-dark flex flex-col items-center;
+}
+
+.btn-style {
+  @apply w-fit tracking-widest uppercase font-extralight text-black border border-black bg-gold rounded-sm p-2 cursor-pointer;
+}
