@@ -1,4 +1,5 @@
 import { useState, useEffect, FormEvent } from "react";
+import { toast } from "react-toastify";
 
 function Register() {
   const [form, setForm] = useState<{ [input: string]: string }>({
@@ -6,7 +7,6 @@ function Register() {
     username: "",
     password: "",
   });
-  console.log(form);
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -18,10 +18,12 @@ function Register() {
 
     const baseURL = "http://localhost:4000/auth/";
     const res = await fetch(`${baseURL}register`, options);
-    if (res.status !== 200) {
-      return console.log(res);
-    }
     const data = await res.json();
+    if (res.status !== 200) {
+      toast.error(data.message);
+    } else {
+      toast.success(data.message);
+    }
   };
 
   const onFormChangeHandler = ({
@@ -31,21 +33,22 @@ function Register() {
   };
 
   useEffect(() => {
-    console.log(form);
   }, [form]);
 
   return (
-    <div className="m-2 p-10 bg-white shadow-md rounded-md">
+    <div className="m-2 p-10 bg-black/25 shadow-md rounded-md">
       <form
         action="submit"
         onSubmit={(e) => onSubmit(e)}
         className="flex flex-col relative h-96"
       >
         {Object.keys(form).map((input, i) => (
-          <div key={i} className="mb-4 text-dark/50">
-            <label htmlFor={input} className="capitalize">{input}</label>
+          <div key={i} className="mb-4">
+            <label htmlFor={input} className="capitalize">
+              {input}
+            </label>
             <input
-              className="bg-gray-100 p-1 text-dark text-lg w-full"
+              className="bg-black/25 p-1 text-lg w-full"
               type={input === "password" ? "password" : "text"}
               value={form[input]}
               name={input}

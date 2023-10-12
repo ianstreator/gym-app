@@ -21,5 +21,5 @@ body {
 }
 
 .btn-style {
-  @apply w-fit tracking-widest uppercase font-extralight text-black border border-black bg-gold rounded-sm p-2 cursor-pointer;
+  @apply w-fit tracking-widest uppercase font-medium text-black border border-black bg-gold rounded-sm p-2 cursor-pointer;
 }

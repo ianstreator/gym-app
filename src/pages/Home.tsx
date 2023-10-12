@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 function Home() {
   const features: { [feature: string]: string } = {
     routine:
-      "Build a custom routine to follow throughout your week, it's pretty simple.",
+      "A custom routine built by you for each day of the week, it's really intuitive.",
     calendar:
-      "The calendar is a dynamic workout chart where days illuminate based on workout entry.",
+      "A visual testament to your fitness journey. With each completed workout, you illuminate the calendar, creating a radiant record of your dedication and progress, day by day.",
     simplicity:
-      "Our app prioritizes essential information, providing a streamlined and intuitive experience for tracking routine progress.",
+      "This tool is designed to track your progress without adding unnecessary complexity.",
   };
 
   return (
@@ -15,14 +15,16 @@ function Home() {
       <section className="w-full text-xl font-medium">
         Welcome to
         <span className="text-gold font-bold"> CONST </span>
-        your personal fitness app. <br /> <br />
-        App Features <br />
+        your personal fitness app. <br />
+        <p className="my-2">App Features</p>
         {Object.entries(features).map(([feature, description], i) => (
           <details key={i} className="mb-2">
             <summary className="text-gold font-bold capitalize">
               {feature}
             </summary>
-            <p className="font-light text-sm p-2">{description}</p>
+            <p className="font-light text-sm p-2 bg-black/25 rounded-md">
+              {description}
+            </p>
           </details>
         ))}
       </section>
