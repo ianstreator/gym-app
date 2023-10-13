@@ -1,5 +1,6 @@
 import { useState, useEffect, FormEvent } from "react";
 import { toast } from "react-toastify";
+import { API_URL } from "../constants";
 
 function Register() {
   const [form, setForm] = useState<{ [input: string]: string }>({
@@ -16,7 +17,7 @@ function Register() {
       body: JSON.stringify(form),
     };
 
-    const baseURL = "http://localhost:4000/auth/";
+    const baseURL = API_URL;
     const res = await fetch(`${baseURL}register`, options);
     const data = await res.json();
     if (res.status !== 200) {
@@ -32,8 +33,7 @@ function Register() {
     setForm((curr) => ({ ...curr, [name]: value }));
   };
 
-  useEffect(() => {
-  }, [form]);
+  useEffect(() => {}, [form]);
 
   return (
     <div className="m-2 p-10 bg-black/25 shadow-md rounded-md">
