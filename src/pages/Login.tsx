@@ -17,7 +17,7 @@ function Login() {
     };
 
     const baseURL = API_URL;
-    const res = await fetch(`${baseURL}login`, options);
+    const res = await fetch(`${baseURL}/auth/login`, options);
     const data = await res.json();
     if (res.status !== 200) {
       return toast.error(data.message);

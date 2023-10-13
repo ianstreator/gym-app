@@ -18,7 +18,7 @@ function Register() {
     };
 
     const baseURL = API_URL;
-    const res = await fetch(`${baseURL}register`, options);
+    const res = await fetch(`${baseURL}/auth/register`, options);
     const data = await res.json();
     if (res.status !== 200) {
       toast.error(data.message);
