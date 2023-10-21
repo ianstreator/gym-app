@@ -11,19 +11,24 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Verify from "./pages/Verify";
 
 function App() {
-  const logoSize = 150;
+  const logoSize = 100;
 
   const HomeLayout = () => (
-    <div className="p-10 pt-0 h-screen max-w-md text-bone flex flex-col items-center">
-      <img
-        src="/const-logo.png"
-        alt="logo"
-        width={logoSize}
-        height={logoSize}
-      />
-      <Outlet />
+    <div className="background w-screen h-screen flex flex-col items-center">
+      <div className="p-8 pt-0 h-screen max-w-md flex flex-col items-center">
+        <img
+          src="/const-logo.png"
+          alt="logo"
+          width={logoSize}
+          height={logoSize}
+        />
+        <div className="m-2 p-10 w-[300px] h-[500px] bg-black/20 backdrop-blur-sm shadow-md rounded-md">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 
@@ -34,10 +39,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verify" element={<Verify />} />
         </Route>
       </Routes>
-      <ToastContainer />
-
+      <ToastContainer theme="dark" limit={2} />
     </Router>
   );
 }
