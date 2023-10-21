@@ -15,11 +15,15 @@
     );
 }
 
+.background {
+  background-image: url("/public/home-background.png");
+}
+
 html,
 body {
-  @apply w-screen h-screen overflow-hidden bg-dark flex flex-col items-center;
+  @apply w-screen h-screen overflow-hidden bg-dark text-white flex flex-col items-center;
 }
 
 .btn-style {
-  @apply w-fit tracking-widest uppercase font-medium text-black border border-black bg-gold rounded-sm p-2 cursor-pointer;
+  @apply tracking-widest uppercase font-medium text-black border border-black bg-gold rounded-sm p-2 cursor-pointer;
 }
