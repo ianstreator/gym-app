@@ -57,7 +57,7 @@ function Register() {
             />
           </div>
         ))}
-        <button type="submit" className="btn-style ml-auto mt-auto">
+        <button type="submit" className="btn-style w-full mt-auto">
           Submit
         </button>
       </form>
