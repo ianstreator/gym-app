@@ -9,7 +9,7 @@ function Login() {
     password: "",
   });
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -23,7 +23,7 @@ function Login() {
     const resPromise: Promise<string> = new Promise(async (resolve, reject) => {
       try {
         const res = await fetch(`${baseURL}/auth/login`, options);
-        const { user, message } = (await res.json()) as { user:{}, message: string };
+        const { message } = (await res.json()) as { user:{}, message: string };
         console.log(res);
         if (res.status === 200) {
           setTimeout(() => {
