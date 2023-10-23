@@ -55,8 +55,6 @@ function Login() {
     setForm((curr) => ({ ...curr, [name]: value }));
   };
 
-  useEffect(() => {}, [form]);
-
   return (
     <div className="h-full flex flex-col">
       <nav className="mb-4 flex items-center justify-around">
