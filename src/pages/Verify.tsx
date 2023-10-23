@@ -26,8 +26,8 @@ function Verify() {
     React.createRef(),
   ];
 
-  const onSubmit = async ({ preventDefault }: FormEvent) => {
-    preventDefault();
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     const code = inputs.join("");
     const options = {
       method: "POST",

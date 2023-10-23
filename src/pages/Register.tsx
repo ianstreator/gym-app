@@ -13,9 +13,9 @@ function Register() {
     password: "",
   });
 
-  const onSubmit = async ({preventDefault}: FormEvent) => {
-    preventDefault();
-    
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

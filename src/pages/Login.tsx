@@ -9,8 +9,8 @@ function Login() {
     password: "",
   });
   const location = useLocation();
-  const onSubmit = async ({ preventDefault }: FormEvent) => {
-    preventDefault();
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
 
     const options = {
       method: "POST",
