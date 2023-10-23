@@ -26,8 +26,8 @@ function Verify() {
     React.createRef(),
   ];
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async ({ preventDefault }: FormEvent) => {
+    preventDefault();
     const code = inputs.join("");
     const options = {
       method: "POST",
@@ -35,11 +35,9 @@ function Verify() {
       body: JSON.stringify({ email, code }),
     };
 
-    const baseURL = ENV_API_URL;
     const resPromise: Promise<string> = new Promise(async (resolve, reject) => {
-      const res = await fetch(`${baseURL}/auth/verify`, options);
+      const res = await fetch(`${ENV_API_URL}/auth/verify`, options);
       const { message } = (await res.json()) as { message: string };
-      console.log(res.status, message);
       if (res.status === 200) {
         setTimeout(() => {
           resolve(message);
@@ -66,34 +64,41 @@ function Verify() {
   };
   const acceptableChars = /([a-z0-9])/i;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
-    const { value } = e.target;
-    if (!acceptableChars.test(value) && value) {
+  const handleChange = (
+    { target: { value: character } }: React.ChangeEvent<HTMLInputElement>,
+    i: number
+  ) => {
+    if (!acceptableChars.test(character) && character) {
       return;
     }
+
     const newInputs: string[] = [...inputs];
-    newInputs[i] = value.toUpperCase();
+
+    newInputs[i] = character.toUpperCase();
+
     setInputs([...newInputs]);
-    if (value && i < inputRefs.length - 1) {
+
+    if (
+      character &&
+      i < inputRefs.length - 1 &&
+      inputRefs[i + 1].current?.value !== character
+    )
       inputRefs[i + 1].current?.select();
-    }
   };
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>, i: number) => {
-    const value = e.key;
-    if (!acceptableChars.test(value) && value) {
-      inputRefs[i].current?.select();
-      return;
-    }
+  const handleKeyUp = (
+    { key }: React.KeyboardEvent<HTMLInputElement>,
+    i: number
+  ) => {
+    if (!acceptableChars.test(key)) return inputRefs[i].current?.select();
+
     if (i === inputs.length - 1) inputRefs[i].current?.select();
 
-    if (inputs[i] === "" && value === "Backspace" && i !== 0) {
-      inputRefs[i - 1].current?.select();
-    }
-  };
+    if (i < inputs.length - 1 && key === inputRefs[i].current?.value)
+      inputRefs[i + 1].current?.select();
 
-  //   useEffect(() => {
-  //     console.log(inputs);
-  //   }, [inputs]);
+    if (inputs[i] === "" && key === "Backspace" && i !== 0)
+      inputRefs[i - 1].current?.select();
+  };
 
   return (
     <form
@@ -108,6 +113,7 @@ function Verify() {
       <div className="flex h-full justify-center items-center">
         {inputs.map((input, i) => (
           <input
+            required
             type="text"
             key={i}
             value={input}

@@ -9,9 +9,8 @@ function Login() {
     password: "",
   });
   const location = useLocation();
-  // const navigate = useNavigate();
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async ({ preventDefault }: FormEvent) => {
+    preventDefault();
 
     const options = {
       method: "POST",
@@ -19,19 +18,15 @@ function Login() {
       body: JSON.stringify(form),
     };
 
-    const baseURL = ENV_API_URL;
     const resPromise: Promise<string> = new Promise(async (resolve, reject) => {
       try {
-        const res = await fetch(`${baseURL}/auth/login`, options);
-        const { message } = (await res.json()) as { user:{}, message: string };
-        console.log(res);
+        const res = await fetch(`${ENV_API_URL}/auth/login`, options);
+        const { message } = (await res.json()) as { user: {}; message: string };
         if (res.status === 200) {
           setTimeout(() => {
             resolve(message);
-            // navigate(`/user/${x}`);
           }, 2000);
         } else {
-          console.log(message);
           reject(message);
         }
       } catch (error) {
@@ -81,12 +76,13 @@ function Login() {
               {input}
             </label>
             <input
-              className="bg-black/25 p-1 text-lg w-full"
+              required
               type={input === "password" ? "password" : "text"}
               value={form[input]}
               name={input}
               id={input}
               onChange={(e) => onFormChangeHandler(e)}
+              className="bg-black/25 p-1 text-lg w-full"
             />
           </div>
         ))}

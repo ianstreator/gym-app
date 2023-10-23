@@ -12,34 +12,26 @@ function Register() {
     username: "",
     password: "",
   });
-  const [fieldError, setFieldError] = useState<Boolean>(false);
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (form.email == "" || form.username == "" || form.password == "") {
-      setFieldError(true);
-      return toast.error("Please fill out all fields.");
-    }
+  const onSubmit = async ({preventDefault}: FormEvent) => {
+    preventDefault();
+    
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     };
 
-    const baseURL = ENV_API_URL;
-
     const resPromise: Promise<string> = new Promise(async (resolve, reject) => {
       try {
-        const res = await fetch(`${baseURL}/auth/register`, options);
+        const res = await fetch(`${ENV_API_URL}/auth/register`, options);
         const { message } = (await res.json()) as { message: string };
-        console.log(res);
         if (res.status === 200) {
           setTimeout(() => {
             resolve(message);
             navigate(`/verify?email=${form.email}`);
           }, 2000);
         } else {
-          console.log(message);
           reject(message);
         }
       } catch (error) {
@@ -87,14 +79,13 @@ function Register() {
               {input}
             </label>
             <input
-              className={`bg-black/25 p-1 text-lg w-full ${
-                fieldError && form[input] === "" ? "text-red-400" : "text-white"
-              }`}
+              required
               type={input === "password" ? "password" : "text"}
               value={form[input]}
               name={input}
               id={input}
               onChange={(e) => onFormChangeHandler(e)}
+              className="bg-black/25 p-1 text-lg w-full"
             />
           </div>
         ))}
