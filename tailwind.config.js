@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        gold: "#FFD568",
+        gold: "#FCD34D",
         bone: "#E3DAC9",
-        dark: "#3D3D3D",
+        dark: "#1E293B",
       },
     },
   },

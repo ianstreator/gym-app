@@ -56,7 +56,7 @@ function Login() {
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full w-full flex flex-col">
       <nav className="mb-4 flex items-center justify-around">
         <Link to="/register" className="opacity-60 underline">
           Register
@@ -80,7 +80,7 @@ function Login() {
               name={input}
               id={input}
               onChange={(e) => onFormChangeHandler(e)}
-              className="bg-black/25 p-1 text-lg w-full"
+              className="bg-black/25 backdrop-blur-md p-1 text-lg w-full"
             />
           </div>
         ))}

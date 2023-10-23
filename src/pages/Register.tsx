@@ -61,7 +61,7 @@ function Register() {
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full w-full flex flex-col">
       <nav className="mb-4 flex items-center justify-around">
         <p className="capitalize">{location.pathname.replace("/", "")}</p>
         <Link to="/login" className="opacity-60 underline">
@@ -85,7 +85,7 @@ function Register() {
               name={input}
               id={input}
               onChange={(e) => onFormChangeHandler(e)}
-              className="bg-black/25 p-1 text-lg w-full"
+              className="bg-black/25 backdrop-blur-md p-1 text-lg w-full"
             />
           </div>
         ))}

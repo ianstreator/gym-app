@@ -14,21 +14,20 @@ import Register from "./pages/Register";
 import Verify from "./pages/Verify";
 
 function App() {
-  const logoSize = 100;
+  const logoSize = 150;
 
   const HomeLayout = () => (
-    <div className="background w-screen h-screen flex flex-col items-center">
-      <div className="p-8 pt-0 h-screen max-w-md flex flex-col items-center">
+    <div className="w-screen h-screen flex flex-col items-center">
+      <div className="z-10 p-8 w-[400px] h-[660px] flex flex-col justify-between items-center">
         <img
           src="/const-logo.png"
           alt="logo"
           width={logoSize}
           height={logoSize}
         />
-        <div className="m-2 p-10 w-[300px] h-[500px] bg-black/20 backdrop-blur-sm shadow-md rounded-md">
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
+      <div className="background z-0 w-screen h-screen absolute"></div>
     </div>
   );
 
