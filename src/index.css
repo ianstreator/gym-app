@@ -17,12 +17,13 @@
 
 .background {
   background-image: url("/public/home-background.png");
+  background-repeat: no-repeat;
   filter: blur(2px)
 }
 
 html,
 body {
-  @apply w-screen h-[100dvh] overflow-hidden bg-dark text-white flex flex-col items-center;
+  @apply relative w-screen min-h-[100dvh] overflow-hidden bg-dark text-white flex flex-col items-center;
 }
 
 .btn-style {
