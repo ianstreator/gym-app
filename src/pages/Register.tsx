@@ -27,12 +27,11 @@ function Register() {
         const res = await fetch(`${ENV_API_URL}/auth/register`, options);
         const { message } = (await res.json()) as { message: string };
         if (res.status === 200) {
-          setTimeout(() => {
-            resolve(message);
-            navigate(`/verify?email=${form.email}`);
-          }, 2000);
+          resolve(message);
+          navigate(`/verify?email=${form.email}`);
         } else {
           reject(message);
+          navigate(`/login?email=${form.email}`);
         }
       } catch (error) {
         reject("There was an issue on our end");
@@ -40,7 +39,7 @@ function Register() {
     });
 
     toast.promise(resPromise, {
-      pending: "We are processing your request.",
+      pending: "Registering your account.",
       success: {
         render({ data }: ToastContentProps<string>) {
           return data;

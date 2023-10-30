@@ -1,14 +1,22 @@
 import { useState, FormEvent } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { toast, ToastContentProps } from "react-toastify";
 import { ENV_API_URL } from "../constants";
+import { Types } from "@constfitness/types";
+import { useUserStore } from "../state.ts";
 
 function Login() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const email = searchParams.get("email");
+  const navigate = useNavigate();
+
   const [form, setForm] = useState<{ [input: string]: string }>({
-    email: "",
+    email: email || "",
     password: "",
   });
-  const location = useLocation();
+
+
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -21,13 +29,22 @@ function Login() {
     const resPromise: Promise<string> = new Promise(async (resolve, reject) => {
       try {
         const res = await fetch(`${ENV_API_URL}/auth/login`, options);
-        const { message } = (await res.json()) as { user: {}; message: string };
+        console.log(res.headers);
+        const { user, message } = (await res.json()) as {
+          user?: Types.User;
+          message: string;
+        };
+        console.log(user);
         if (res.status === 200) {
-          setTimeout(() => {
-            resolve(message);
-          }, 2000);
-        } else {
+          resolve(message);
+          // userState.setUsername!(user!.username);
+          useUserStore.setState({ user });
+          navigate(`/user/${user?._id}`);
+        } else if (res.status === 401) {
           reject(message);
+        } else if (res.status === 403) {
+          reject(message);
+          navigate(`/verify?email=${form.email}`);
         }
       } catch (error) {
         reject("There was an issue on our end");
@@ -35,7 +52,7 @@ function Login() {
     });
 
     toast.promise(resPromise, {
-      pending: "We are processing your request.",
+      pending: "Logging in.",
       success: {
         render({ data }: ToastContentProps<string>) {
           return data;

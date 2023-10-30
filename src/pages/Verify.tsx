@@ -7,9 +7,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 function Verify() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const email = searchParams.get("email") as string;
-  const code = searchParams.get("code") as string;
+  const email = searchParams.get("email")
+  const code = searchParams.get("code")
   const navigate = useNavigate();
+  
   useEffect(() => {
     if (!email) navigate("/register");
   }, []);
@@ -39,9 +40,8 @@ function Verify() {
       const res = await fetch(`${ENV_API_URL}/auth/verify`, options);
       const { message } = (await res.json()) as { message: string };
       if (res.status === 200) {
-        setTimeout(() => {
-          resolve(message);
-        }, 2000);
+        resolve(message);
+        navigate(`/login?email=${email}`);
       } else {
         reject(message);
       }
@@ -49,7 +49,7 @@ function Verify() {
     });
 
     toast.promise(resPromise, {
-      pending: "Attempting to verify your identity.",
+      pending: "Verifying your identity.",
       success: {
         render({ data }: ToastContentProps<string>) {
           return data;
