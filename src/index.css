@@ -17,7 +17,6 @@
 
 .background {
   background-image: url("/public/home-background.png");
-  background-repeat: no-repeat;
   filter: blur(2px)
 }
 
