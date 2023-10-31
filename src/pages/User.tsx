@@ -6,9 +6,12 @@ import { Types } from "@constfitness/types";
 function User() {
   const navigate = useNavigate();
   const user = useUserStore.getState().user;
+  const {_id, schedule} = user
   useEffect(() => {
-    console.log(user.schedule);
-    const schedule = Object.entries(user.schedule).reduce(
+    console.log(_id, user)
+    if (!_id) navigate("/login");
+    console.log(schedule);
+    const scheduleObject = Object.entries(schedule).reduce(
       (schedule: { [day: string]: Types.Activity[] }, [day, workout]) => {
         if (workout.length) {
           schedule[day] = workout;
@@ -18,9 +21,10 @@ function User() {
       },
       {}
     );
-    console.log(schedule);
-    if (!Object.values(schedule).length) {
-      navigate(`/user/${user._id}/schedule`);
+    console.log(scheduleObject);
+    if (!Object.values(scheduleObject).length) {
+      console.log(_id);
+      navigate(`/user/${_id}/schedule`);
     }
   }, []);
   return <div>User</div>;
