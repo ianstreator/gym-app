@@ -41,7 +41,7 @@ function App() {
       <nav className="p-4 flex w-full bg-black/25">
         <h1 className="font-bold">{useUserStore.getState().user.username}</h1>
       </nav>
-      <div className="p-20 h-full">
+      <div className="p-16 h-full">
         <Outlet />
       </div>
     </div>
